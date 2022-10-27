@@ -24,6 +24,7 @@ const deleteOne = async (id) => {
             id: id
         }
     }) 
+    return role;
 }
 
 module.exports = {create, getAll, getOne, deleteOne}

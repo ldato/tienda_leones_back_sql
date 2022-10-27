@@ -21,6 +21,11 @@ const findUser = async (req, res) => {
     const {username} = req.body;
     try {
         const user = await getOne(username);
+        if (!user) {
+            return res.status(404).json({
+                message: "No se encontro el usuario con el username enviado"
+            })
+        }
         return res.status(200).json(user);
     } catch (error) {
         return res.status(401).json({
@@ -46,7 +51,14 @@ const deleteUser = async (req, res) => {
     const {username} = req.body;
     try {
         const user = await deleteOne(username);
-        return res.status(200).json(user);
+        if (!user) {
+            return res.status(404).json({
+                message: "No se encontro el usuario con el username enviado"
+            })
+        }
+        return res.status(200).json({
+            message: `El usuario ${username} fue eliminado`
+        });
     } catch (error) {
         return res.status(401).json({
             message: "Ha ocurrido un error al borrar el usuario",

@@ -29,6 +29,11 @@ const getRole = async (req, res) => {
     const {id} = req.params
     try {
         const role = await getOne(id);
+        if (!role) {
+            return res.status(404).json({
+                message: "No se encontro el role con el id enviado"
+            })
+        }
         return res.status(200).json(role);
     } catch (error) {
         return res.status(400).json({
