@@ -22,6 +22,13 @@ db.cliente = require("./cliente")(sequelize, Sequelize);
 db.venta = require("./venta")(sequelize, Sequelize);
 db.talle = require("./talle")(sequelize, Sequelize);
 db.productoTalle = require("./productoTalle")(sequelize, Sequelize);
+db.total = require("./total")(sequelize, Sequelize);
+
+
+db.venta.hasOne(db.total, {
+    foreignKey: {name: "ventaId"}
+});
+db.total.belongsTo(db.venta);
 
 db.role.hasMany(db.user, {
     foreignKey: {name: "roleId"},
@@ -41,10 +48,14 @@ db.proveedor.hasMany(db.producto, {
     onDelete: "CASCADE"
 })
 
+
+
 db.producto.belongsToMany(db.cliente, {through: db.venta});
 db.cliente.belongsToMany(db.producto, {through: db.venta});
 
 db.producto.belongsToMany(db.talle, {through: db.productoTalle});
 db.talle.belongsToMany(db.producto, {through: db.productoTalle});
+
+
 
 module.exports = db;

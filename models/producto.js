@@ -3,9 +3,7 @@ module.exports = (sequelize, Sequelize) => {
         codigo : {
             type: Sequelize.INTEGER,
             primaryKey: true,
-            allowNull: false,
-            autoIncrement: true,
-            unique: true
+            allowNull: false
         },
         idMarca: {
             type: Sequelize.INTEGER,

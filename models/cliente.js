@@ -4,13 +4,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             primaryKey: true,
             allowNull: false,
-            autoIncrement: true,
-            unique: true
+            autoIncrement: true
         },
         nombre: {
             type: Sequelize.STRING,
-            allowNull: false,
-            unique: true
+            allowNull: false
         },
         apellido: {
             type: Sequelize.STRING,
