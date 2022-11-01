@@ -3,22 +3,12 @@ module.exports = (sequelize, Sequelize) => {
       idVenta: {
         type: Sequelize.STRING,
         primaryKey: true
-      },
-      cantidad: {
-        type: Sequelize.INTEGER,
-      },
-      productoCodigo: {
-        type: Sequelize.INTEGER,
-        primaryKey: true
-      },
+      },      
       clienteDni: {
         type: Sequelize.INTEGER,
         primaryKey: true
       },
-      precioUnitario: {
-        type: Sequelize.FLOAT
-      },
-      subTotal: {
+      total: {
         type: Sequelize.FLOAT
       }
     },
