@@ -1,4 +1,4 @@
-const {create, getByDni} = require('../services/venta');
+const {create, getByDni, getByCodigo} = require('../services/venta');
 
 const createVenta = async (req, res) => {
     const data = req.body;
@@ -34,4 +34,24 @@ const getVentasByDni = async (req, res) => {
     }
 }
 
-module.exports = {createVenta, getVentasByDni}
+const getVentasByCodigo = async (req, res) => {
+    const {codigo} = req.params;
+    try {
+        const ventas = await getByCodigo(codigo);
+        if (ventas.length === 0) {
+            return res.status(404).json({
+                message: `No se encontraron ventas para el DNI: ${dni}`
+            })
+        }
+
+        return res.status(200).json(ventas);
+    } catch (error) {
+        console.log(error)
+        return res.status(401).json({
+            message: "Ha ocurrido un error al consultar las ventas por DNI",
+            error: error
+        })
+    }
+}
+
+module.exports = {createVenta, getVentasByDni, getVentasByCodigo}

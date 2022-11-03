@@ -60,13 +60,15 @@ db.cliente.hasMany(db.venta, {
 db.producto.belongsToMany(db.venta, {
     through: db.detalleVenta,
     unique: false,
-    foreignKey: "productoCodigo"
+    foreignKey: "productoCodigo",
+    onDelete: "CASCADE"
 });
 
 db.venta.belongsToMany(db.producto, {
     through: db.detalleVenta,
     unique: false,
-    foreignKey: "idVenta"
+    foreignKey: "idVenta",
+    onDelete: "CASCADE"
 });
 
 db.producto.belongsToMany(db.talle, {through: db.productoTalle});

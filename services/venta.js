@@ -32,7 +32,7 @@ const create = async (data) => {
 const getByDni = async (dni) => {
     console.log(dni)
     const ventas = await sequelize.query(`SELECT v.idVenta, c.nombre, c.apellido, m.nombre AS marca,
-	d.cantidad, d.precioUnitario, d.createdAt, p.descripcion
+	d.cantidad, d.precioUnitario, d.subtotal as subtotal_producto, d.createdAt, p.descripcion
     FROM clientes c 
     JOIN venta v ON c.dni = v.clienteDni
     JOIN detalleventa d ON v.idVenta = d.idVenta
@@ -43,5 +43,16 @@ const getByDni = async (dni) => {
     return ventas;
 }
 
-module.exports = {create, getByDni}
+const getByCodigo = async (codigo) => {
+    const ventas = await sequelize.query(`SELECT p.descripcion, v.createdAt, d.precioUnitario, m.nombre AS marca, d.cantidad, c.nombre, c.apellido
+    FROM productos p 
+    JOIN detalleventa d ON p.codigo = d.productocodigo 
+    JOIN venta v ON d.idVenta = v.idVenta
+    JOIN clientes c ON v.clienteDni = c.dni
+    JOIN marcas m ON p.idMarca = m.id
+    WHERE p.codigo = ${codigo};`, {type: QueryTypes.SELECT});
+    return ventas
+} 
+
+module.exports = {create, getByDni, getByCodigo}
 

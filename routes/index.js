@@ -7,6 +7,7 @@ const clientesRoutes = require('./cliente');
 const tallesRoutes = require('./talle');
 const productosRoutes = require('./producto');
 const ventasRoutes = require('./venta');
+const stockRoutes = require('./stock');
 
 
 router.get('/', async (req, res) => {
@@ -23,5 +24,6 @@ router.use('/clientes', clientesRoutes);
 router.use('/talles', tallesRoutes);
 router.use('/productos', productosRoutes);
 router.use('/ventas', ventasRoutes);
+router.use('/stock', stockRoutes);
 
 module.exports = router;

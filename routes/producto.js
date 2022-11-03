@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const {createProducto, initialStock, getProductos, getProducto} = require('../controllers/productosController');
+const {stockInitial} = require('../controllers/stockController');
 
 router.post('/', createProducto);
 
-router.post('/initial', initialStock);
+router.post('/initial', stockInitial);
 
 router.get('/', getProductos);
 
