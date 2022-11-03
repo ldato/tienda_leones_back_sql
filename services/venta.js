@@ -1,5 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
+const { sequelize } = require('../models');
 const db = require('../models');
+const { QueryTypes } = require('sequelize');
 
 const create = async (data) => {
     let idVenta = uuidv4();
@@ -27,5 +29,19 @@ const create = async (data) => {
     return respuesta;
 }
 
-module.exports = {create}
+const getByDni = async (dni) => {
+    console.log(dni)
+    const ventas = await sequelize.query(`SELECT v.idVenta, c.nombre, c.apellido, m.nombre AS marca,
+	d.cantidad, d.precioUnitario, d.createdAt, p.descripcion
+    FROM clientes c 
+    JOIN venta v ON c.dni = v.clienteDni
+    JOIN detalleventa d ON v.idVenta = d.idVenta
+    JOIN productos p ON p.codigo = d.productoCodigo 
+    JOIN marcas m ON p.idMarca = m.id 
+    WHERE c.dni = ${dni};`, {type: QueryTypes.SELECT});
+    console.log(ventas)
+    return ventas;
+}
+
+module.exports = {create, getByDni}
 

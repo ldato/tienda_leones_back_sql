@@ -30,13 +30,13 @@ db.role.hasMany(db.user, {
 })
 
 db.marca.hasMany(db.producto, {
-    foreignKey: {name: "marcaId"},
+    foreignKey: {name: "idMarca"},
     as: "Producto_Marca_Id",
     onDelete: "CASCADE"
 })
 
 db.proveedor.hasMany(db.producto, {
-    foreignKey: {name: "proveedorId"},
+    foreignKey: {name: "idProveedor"},
     as: "Producto_Proveedor_Id",
     onDelete: "CASCADE"
 })
