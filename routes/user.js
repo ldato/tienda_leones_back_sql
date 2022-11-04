@@ -10,6 +10,6 @@ router.get('/', getUsers);
 
 router.delete('/', deleteUser);
 
-router.get('/login', loginUser);
+router.post('/login', loginUser);
 
 module.exports = router;

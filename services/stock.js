@@ -19,18 +19,44 @@ const getOne = async (codigo) => {
     return stock
 }
 
-const increase = async (data) => {
-    const {productoCodigo, talleId, cantidad} = data;
+const increase = async (productoCodigo, data) => {
+    const {talleId, cantidad} = data;
+    const codigo = productoCodigo;
     const stockNow = await db.productoTalle.findAll({
         where: {
-            [Op.and]: [{productoCodigo: productoCodigo}, {talleId: talleId}]
+            productoCodigo: codigo, talleId: talleId
         }
     })
-    return stockNow
+    let newCantidad = stockNow[0].cantidad + cantidad;
+    console.log(newCantidad);
+    const newStock = await db.productoTalle.update({
+        cantidad: newCantidad
+    }, {
+        where: {productoCodigo: codigo}
+    })
+    return newStock;
+}
+
+const decrese = async (productoCodigo, data) => {
+    const {talleId, cantidad} = data;
+    const codigo = productoCodigo;
+    const stockNow = await db.productoTalle.findAll({
+        where: {
+            productoCodigo: codigo, talleId: talleId
+        }
+    })
+    let newCantidad = stockNow[0].cantidad - cantidad;
+    console.log(newCantidad);
+    const newStock = await db.productoTalle.update({
+        cantidad: newCantidad
+    }, {
+        where: {productoCodigo: codigo}
+    })
+    return newStock;
 }
 
 
 
 
 
-module.exports = {initial, increase, getOne}
+module.exports = {initial, increase, getOne, decrese}

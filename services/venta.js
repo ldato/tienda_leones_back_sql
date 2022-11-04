@@ -12,6 +12,7 @@ const create = async (data) => {
         clienteDni: data.clienteDni,
         total: data.total
     });
+
     respuesta.push(insertVenta);
     for (let i = 0; i < data.items.length; i++) {
         let insert = {

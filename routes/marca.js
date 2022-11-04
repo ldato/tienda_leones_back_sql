@@ -1,14 +1,15 @@
 const router = require('express').Router();
 const {createMarca, getMarcas, getMarca, deleteMarca, updateMarca} = require('../controllers/marcasController');
+const verifyToken = require('../middleware/verifyToken');
 
-router.post('/', createMarca);
+router.post('/', verifyToken, createMarca);
 
-router.get('/', getMarcas);
+router.get('/', verifyToken ,getMarcas);
 
-router.get('/getOne', getMarca);
+router.get('/getOne', verifyToken, getMarca);
 
-router.delete('/', deleteMarca);
+router.delete('/', verifyToken, deleteMarca);
 
-router.patch('/', updateMarca);
+router.patch('/', verifyToken, updateMarca);
 
 module.exports = router;
